@@ -1,0 +1,35 @@
+name: Preprocess Banana Quality
+
+on:
+  push:
+    paths:
+      - 'preprocessing/automate_*.py'
+      - 'banana_quality.csv'
+  workflow_dispatch:
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.7'
+
+      - name: Install dependencies
+        run: pip install pandas scikit-learn
+
+      - name: Run preprocessing script
+        run: python preprocessing/automate_Nama-siswa.py
+
+      - name: Commit cleaned dataset
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git add preprocessing/cleaned_banana_quality.csv
+          git commit -m "Update cleaned banana dataset" || echo "No changes to commit"
+          git push
