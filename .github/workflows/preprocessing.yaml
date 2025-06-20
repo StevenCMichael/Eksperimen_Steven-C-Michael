@@ -3,7 +3,7 @@ name: Preprocess Banana Quality
 on:
   push:
     paths:
-      - 'preprocessing/Eksperimen_Steven-C-Michael.py'
+      - 'preprocessing/automate_Steven-C-Michael.py'
       - 'banana_quality.csv'
   workflow_dispatch:
 
