@@ -31,13 +31,9 @@ def preprocess_encode_and_randomize(df):
     df['Quality_encoded'] = label_encoder.fit_transform(df['Quality'])
     df_encoded = df.drop('Quality', axis=1)
 
-    print("Mendeteksi outlier...")
     outlier_counts = count_outliers(df_encoded)
-    print("Jumlah outlier per kolom:", outlier_counts)
 
     df_no_outlier = remove_outliers_iqr(df_encoded)
-    print("Shape awal:", df_encoded.shape)
-    print("Shape setelah hapus outlier:", df_no_outlier.shape)
 
     df_randomized = df_no_outlier.sample(frac=1, random_state=42).reset_index(drop=True)
     return df_randomized
@@ -57,3 +53,5 @@ if __name__ == '__main__':
         print(f"Error: File {input_path} not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+# Steven C Michael
